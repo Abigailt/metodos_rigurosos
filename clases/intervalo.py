@@ -1,11 +1,11 @@
-# -*- coding: utf-8 -*- 
+﻿# -*- coding: utf-8 -*- 
 
 class Intervalo(object):
     """
     Se define la clase 'Intervalo', y los métodos para la aritmética básica de intervalos,
     es decir, suma, resta, multiplicación y división. Se incluyen otras funciones
     que serán útiles.
-    """
+    """
     def __init__(self, lo, hi=None):
         """
         Definimos las propiedades del objeto Intervalo a partir de sus bordes,
@@ -273,3 +273,93 @@ class Intervalo(object):
     def hull(self, otro):
         return Intervalo(min(self.lo,otro.lo),max(self.hi,otro.hi))
 
+
+
+    #Intervalo a la potencia n
+    #Por el momento funciona para intervalos que no contienen al cero
+    #Para intervalos negativos solo funciona para exponentes enteros
+     
+
+
+    def logn(self):
+
+    return Intervalo(sc.log(self.lo),sc.log(self.hi))
+
+ 
+
+    def ex(self):
+
+        return Intervalo(sc.exp(self.lo),sc.exp(self.hi))
+
+ 
+
+    def _mulk(self, n):
+
+        try:
+
+            S=[self.lo*n , self.hi*n]
+
+            return Intervalo( min(S), max(S) )
+
+        except:
+
+            return self * n
+
+    
+
+    def xen(self,n):
+
+        lnx=logn(self)
+
+        nlnx=_mulk(lnx,n)
+
+        enlnx=ex(nlnx)
+
+        return enlnx
+
+ 
+
+    def xn(self,n):
+
+        if self.lo>0:
+
+           xan=xen(self,n)
+
+           print xan
+
+           if self.lo<0:
+
+             if self.hi<0:
+
+                 neg=__neg__(self)
+
+                 r=n//2
+
+                 rr=n-r*2
+
+                 xnpar=xen(neg,n)
+
+                 xnimpar=__neg__(xnpar)
+
+                 if rr==0:
+
+                    return xnpar
+
+                 elif rr==1:
+
+                    return xnimpar
+
+                 else: 
+
+                    print "el exponente no es entero, este caso aún no está resuelto para intervalos negativos"
+
+     
+
+ 
+
+ 
+
+ 
+
+
+    
